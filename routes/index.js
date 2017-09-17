@@ -7,9 +7,9 @@ var url = require('url');
 router.get('/api', function(req, res, next) {
 
     var err = "this is error";
-    var error = Error (err)
     var data = { data: "Succuss"}
     if (err) {
+        var error = Error (err)
         next(error.message)
         res.json({message:err})
     }else {
