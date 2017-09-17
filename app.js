@@ -22,47 +22,6 @@ app.use(function(req, res, next) {
 });
 
 
-app.use(expressValidator({
-    customValidators: {
-        isIntArray: function(value) {
-            if (Array.isArray(value)){
-                for (var i =0; i < value.length; i++) {
-                    if (typeof value[i] !== 'number' && value[i] % 1 != 0) {
-                        return false;
-                        break;
-                    }
-                }
-                return true;
-            }else {
-                return false;
-            }
-        },
-        isTime: function (value) {
-           // regular expression to match required time format
-            re = /^(\d{1,2}):(\d{2})(:00)?([ap]m)?$/;
-
-            if(value != '') {		
-              if(regs = value.match(re)) {
-            if(regs[1] > 23) {
-                    return false;
-                }
-            
-                if(regs[2] > 59) {
-                  return false;
-                }
-              } else {
-                return false;
-              }
-            }
-
-            return true;
-        },
-        isTimeWithSeconds: function (value) {
-           return moment(value, "HH:mm:ss", true).isValid();
-        }
-    }
-}))
-
 /** Start Prometheus middleware */
 /**
  * This creates the module that we created in the step before.
