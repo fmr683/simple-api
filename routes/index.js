@@ -10,7 +10,7 @@ router.get('/api', function(req, res) {
     var errObj = {error: "error object"}
     var data = { data: "Succuss"}
     if (errObj) {
-        res.json({message:errObj});
+        return res.status(400).send({status: false , message: errObj});
     }else {
         res.json(data);
     }
