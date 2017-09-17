@@ -15,11 +15,7 @@ app.use(expressValidator([]));
 
 var port = process.env.PORT || 8978;
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 
 /** Start Prometheus middleware */
@@ -36,6 +32,7 @@ var Prometheus = require('./util/prometheus')
  */
 app.use(Prometheus.requestCounters);  
 app.use(Prometheus.responseCounters);
+//app.use(Prometheus.logger);
 
 /**
  * Enable metrics endpoint
@@ -49,10 +46,22 @@ Prometheus.startCollection();
 /** End Prometheus middleware */
 
 
+app.use(function(err,req,res,next) {
+  //console.log( "TET");
+})
+
+//app.use(router);
+
+router.get('/',function(req,res,next) {
+  var error = Error('Article is not found');
+ // next(error.message);
+ return res.send("Hello World!");
+});
+
+app.use('/',router);
 
 
-app.use(router);
 
 
 app.listen(port);
-console.log('test node API ' + port ); 
+//console.log('test node API ' + port ); 

@@ -66,7 +66,6 @@ module.exports.requestCounters = function (req, res, next) {
  */
 module.exports.responseCounters = ResponseTime(function (req, res, time) {  
     if(req.url != '/metrics') {
-        console.log(res);
         responses.labels(req.method, req.url, res.statusCode, res.message).observe(time);
     }
 })
@@ -80,3 +79,10 @@ module.exports.injectMetricsRoute = function (App) {
         res.end(Register.metrics());
     });
 };
+
+
+module.exports.logger = function (err, req, res, next) {
+    console.log("heellllllll")
+ // console.log(err)
+  //next()
+}

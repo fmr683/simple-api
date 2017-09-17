@@ -4,13 +4,14 @@ var url = require('url');
 
 
 
-router.get('/api', function(req, res) {
+router.get('/api', function(req, res, next) {
 
     var err = "this is error";
-    var errObj = {error: "error object"}
+    var error = Error (err)
     var data = { data: "Succuss"}
-    if (errObj) {
-        return res.status(400).send({status: false , message: errObj});
+    if (err) {
+        next(error.message)
+        res.json({message:err})
     }else {
         res.json(data);
     }
